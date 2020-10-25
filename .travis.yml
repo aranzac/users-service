@@ -5,8 +5,8 @@ services:
   - mysql
 before_install:
   - chmod +x mvnw
-  - mysql -u root -e 'CREATE USER 'aran'@'localhost' IDENTIFIED BY 'carol';'
-  - mysql -u root -e 'GRANT ALL ON users.* TO 'aran'@'localhost';'
+  - mysql -u root -e "CREATE USER 'aran'@'localhost' IDENTIFIED BY 's3cr3t';"
+  - mysql -u root -e "GRANT ALL ON user.* TO 'makler'@'localhost';"
   
 script: sudo ./mvnw clean install
  
