@@ -12,4 +12,3 @@ script: sudo ./mvnw clean install
  
 sudo: true
 dist: precise
-
