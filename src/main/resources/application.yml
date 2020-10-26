@@ -1,7 +1,0 @@
-server:
-  port: 8082
-  
-#spring:#  security:#    user:#      name: admin
-#      password: secret
-#      roles:#      - USER
-#      - ADMIN
