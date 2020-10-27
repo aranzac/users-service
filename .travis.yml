@@ -1,16 +1,24 @@
 language: java
+
 jdk:
- - oraclejdk8
+  - oraclejdk8
+
 services:
   - mysql
+
+before_install:
+  - chmod +x mvnw
+
 #before_install:
 #  - chmod +x mvnw
 #  - mysql -u root password admin
 #  - mysql -u root -e "CREATE USER 'aran'@'localhost' IDENTIFIED BY 's3cr3t';"
 #  - mysql -u root -e "GRANT ALL ON user.* TO 'aran'@'localhost';"
-  
-script: 
- - sudo ./mvnw clean install
- 
-sudo: true
+
+dist: trusty
+
+script:
+  - sudo ./mvnw clean install
+
+sudo: required
 dist: precise
