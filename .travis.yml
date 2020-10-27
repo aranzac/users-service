@@ -20,5 +20,4 @@ dist: trusty
 script:
   - sudo ./mvnw clean install
 
-sudo: required
-dist: precise
+#dist: precise
