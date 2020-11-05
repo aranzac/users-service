@@ -1,8 +1,11 @@
-spring:
-  application:
-    name: userservice
-  cloud:
-    config:
-      uri: http://localhost:8888
-      username: admin
-      password: s3cr3t
+server:
+  port: 8888
+
+#spring:
+#  application:
+#    name: userservice
+#  cloud:
+#    config:
+#      uri: http://localhost:8888
+#      username: admin
+#      password: s3cr3t
