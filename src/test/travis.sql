@@ -3,9 +3,9 @@ GRANT SELECT,INSERT,UPDATE,DELETE,CREATE,DROP ON *.* TO 'dev'@'localhost';
 
 
 # Create DB
-CREATE DATABASE IF NOT EXISTS `demo` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+CREATE DATABASE IF NOT EXISTS `users_db` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 
-USE `demo`;
+USE `users_db`;
 
 
 # Create Table
