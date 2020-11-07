@@ -18,7 +18,7 @@ before_install:
   #- mysql -u root -e "CREATE USER 'aran'@'localhost' IDENTIFIED BY 's3cr3t';"
   #- mysql -u root -e "GRANT ALL ON user.* TO 'aran'@'localhost';"
  # - mysql -e 'CREATE DATABASE IF NOT EXISTS users_db;'
-  - mysql -u root --password="" < src/test/travis.sql
+  - mysql -u root --password="admin" < src/test/travis.sql
 
 dist: trusty
 
