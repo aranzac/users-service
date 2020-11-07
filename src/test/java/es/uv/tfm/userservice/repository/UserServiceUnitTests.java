@@ -7,9 +7,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.MockitoAnnotations;
-import org.slf4j.Logger;
-
-import org.slf4j.LoggerFactory;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -32,7 +29,7 @@ public class UserServiceUnitTests {
 	@MockBean
 	private UserRepository userRepository;
 	
-	private static final Logger LOG = LoggerFactory.getLogger(UserServiceUnitTests.class);
+	//private static final Logger LOG = LoggerFactory.getLogger(UserServiceUnitTests.class);
 	
 	@Before(value = "")
 	public void setUp() throws Exception{
