@@ -4,7 +4,7 @@ jdk:
   - oraclejdk8
 
 env: 
-  - DATABASE=jdbc:mysql://localhost:3306/users_db?serverTimezone=UTC DB_USERNAME=root DB_PASSWORD="admin"
+  - DATABASE=jdbc:mysql://localhost:3306/users_db?serverTimezone=UTC DB_USERNAME=root DB_PASSWORD=""
 
 services:
   - mysql
