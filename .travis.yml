@@ -14,7 +14,7 @@ before_install:
  # - mysql -u root password admin
   #- mysql -u root -e "CREATE USER 'aran'@'localhost' IDENTIFIED BY 's3cr3t';"
   #- mysql -u root -e "GRANT ALL ON user.* TO 'aran'@'localhost';"
-  - mysql -e 'CREATE DATABASE IF NOT EXISTS users_db;'
+ # - mysql -e 'CREATE DATABASE IF NOT EXISTS users_db;'
 
 dist: trusty
 
