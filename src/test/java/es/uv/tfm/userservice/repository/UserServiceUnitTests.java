@@ -6,10 +6,10 @@ import org.aspectj.lang.annotation.Before;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import es.uv.tfm.userservice.entities.User;
@@ -24,9 +24,10 @@ public class UserServiceUnitTests {
 
 	
 	@InjectMocks
-	private UserServiceImpl userService;
+	private final UserServiceImpl userService = new UserServiceImpl();
+
 	
-	@MockBean
+	@Mock
 	private UserRepository userRepository;
 	
 	//private static final Logger LOG = LoggerFactory.getLogger(UserServiceUnitTests.class);
@@ -34,8 +35,6 @@ public class UserServiceUnitTests {
 	@Before(value = "")
 	public void setUp() throws Exception{
 		MockitoAnnotations.initMocks(this);
-		
-	        
 	}
 	
 	
@@ -60,9 +59,11 @@ public class UserServiceUnitTests {
 //        Assert.assertEquals(user.getUsername(), result.getUsername());
 		
 		int id = 9999;
-		User user = new User(id, "prueba", "123456", "pruba@prueba", "enabled");
-		User user2 = new User(1234567777, "pruebas", "123456", "prubas@prueba", "enabled");
+		User user;
+		user = new User(id, "prueba", "123456", "pruba@prueba", "enabled");
+		//User user2 = new User(1234567777, "pruebas", "123456", "prubas@prueba", "enabled");
 		userService.createUser(user);
+		//userRepository.save(user);
     }
 	
 	

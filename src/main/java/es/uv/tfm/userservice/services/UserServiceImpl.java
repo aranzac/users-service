@@ -53,16 +53,16 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User createUser(User user) {
 
-		if (userRepository.findByUsername(user.getUsername()).isPresent()
-				|| userRepository.findByEmail(user.getEmail()).isPresent())
-			throw new UserExistsException("User already exists");
-
-		Optional<Role> role = roleRepository.findByName("ROLE_USER");
-
-		if (!role.isPresent())
-			throw new ResourceNotFoundException("Role not found");
-
-		user.addRole(role.get());
+//		if (userRepository.findByUsername(user.getUsername()).isPresent()
+//				|| userRepository.findByEmail(user.getEmail()).isPresent())
+//			throw new UserExistsException("User already exists");
+//
+//		Optional<Role> role = roleRepository.findByName("ROLE_USER");
+//
+//		if (!role.isPresent())
+//			throw new ResourceNotFoundException("Role not found");
+//
+//		user.addRole(role.get());
 
 		return userRepository.save(user);
 	}
