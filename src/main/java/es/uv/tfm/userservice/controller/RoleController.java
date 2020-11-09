@@ -77,7 +77,7 @@ public class RoleController {
 			User user = userService.findById(id);
 			Role role = roleService.findByName(name);
 			user.addRole(role);
-			return new ResponseEntity<Object>(userService.updateUser(id, user), HttpStatus.NO_CONTENT);
+			return new ResponseEntity<Object>(userService.updateUser(user), HttpStatus.NO_CONTENT);
 		} catch (ResourceNotFoundException ex) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, ex.getMessage());
 		}

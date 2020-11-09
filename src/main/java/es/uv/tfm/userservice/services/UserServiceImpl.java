@@ -33,7 +33,7 @@ public class UserServiceImpl implements UserService {
     @Secured ({"ROLE_USER", "ROLE_ADMIN"})
 	public User findById(int id) {
 		return userRepository.findById(id)
-				.orElseThrow(() -> new ResourceNotFoundException("No user found with id " + id));
+				.orElseThrow(() -> new ResourceNotFoundException(": No user found with id " + id));
 	}
 
 	@Override
@@ -53,27 +53,27 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User createUser(User user) {
 
-//		if (userRepository.findByUsername(user.getUsername()).isPresent()
-//				|| userRepository.findByEmail(user.getEmail()).isPresent())
-//			throw new UserExistsException("User already exists");
-//
-//		Optional<Role> role = roleRepository.findByName("ROLE_USER");
-//
-//		if (!role.isPresent())
-//			throw new ResourceNotFoundException("Role not found");
-//
-//		user.addRole(role.get());
+		if (userRepository.findByUsername(user.getUsername()).isPresent()
+				|| userRepository.findByEmail(user.getEmail()).isPresent())
+			throw new UserExistsException("User already exists");
+
+		Optional<Role> role = roleRepository.findByName("ROLE_USER");
+
+		if (!role.isPresent())
+			throw new ResourceNotFoundException("Role not found");
+
+		user.addRole(role.get());
 
 		return userRepository.save(user);
 	}
 
 	@Override
-    @Secured ({"ROLE_USER", "ROLE_ADMIN"})
-	public User updateUser(int id, User user) {
+    //@Secured ({"ROLE_USER", "ROLE_ADMIN"})
+	public User updateUser( User user) {
 
-		userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("No user found with id " + id));
+		userRepository.findById(user.getId()).orElseThrow(() -> new ResourceNotFoundException(": No user found with id " + user.getId()));
 
-		user.setId(id);
+		user.setId(user.getId());
 
 		return userRepository.save(user);
 	}
@@ -84,7 +84,6 @@ public class UserServiceImpl implements UserService {
 
 		userRepository.deleteById(id);
 
-		System.out.println("aqi");
 //		try {
 //			userRepository.deleteById(id);
 //

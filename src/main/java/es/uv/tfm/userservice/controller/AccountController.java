@@ -105,7 +105,7 @@ public class AccountController {
 				user.setState("enabled");
 			
 			
-			return userService.updateUser(id, user);
+			return userService.updateUser(user);
 		} catch (ResourceNotFoundException ex) {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, ex.getMessage());
 		}

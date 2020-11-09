@@ -2,11 +2,15 @@ package es.uv.tfm.userservice.repository;
 
 
 
-import org.aspectj.lang.annotation.Before;
-import org.junit.jupiter.api.Test;
+import java.util.Optional;
+
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -22,48 +26,47 @@ import es.uv.tfm.userservice.services.UserServiceImpl;
 //@RunWith(MockitoJUnitRunner.class)
 public class UserServiceUnitTests {
 
-	
 	@InjectMocks
-	private final UserServiceImpl userService = new UserServiceImpl();
+	private UserServiceImpl userService = new UserServiceImpl();
 
-	
 	@Mock
 	private UserRepository userRepository;
 	
-	//private static final Logger LOG = LoggerFactory.getLogger(UserServiceUnitTests.class);
+	private User user = new User(9999, "prueba", "123456", "prueba@prueba", "enabled");
 	
-	@Before(value = "")
+	@Before
 	public void setUp() throws Exception{
 		MockitoAnnotations.initMocks(this);
+		userService = new UserServiceImpl();
 	}
-	
-	
-	
-	
-	
-//	User user = User.builder().id(99999).username("prueba").password("123456").email("prueba@prueba").state("enabled").build();
-
 	
 	@Test
     public void findByIdTest() {
 		
-//		int id = 9999;
-//        User user = new User(id, "prueba", "123456", "pruba@prueba", "enabled");
-//        System.out.println(user.getId());
-//        userService.createUser(user);
-//        Mockito.when(userRepository.findById(9999)).thenReturn(Optional.ofNullable(user));
-// 
-//        User result = userService.findById(id);
-//        
-//        
-//        Assert.assertEquals(user.getUsername(), result.getUsername());
-		
-		int id = 9999;
-		User user;
-		user = new User(id, "prueba", "123456", "pruba@prueba", "enabled");
-		//User user2 = new User(1234567777, "pruebas", "123456", "prubas@prueba", "enabled");
 		userService.createUser(user);
-		//userRepository.save(user);
+
+		Mockito.when(userRepository.findById(9999)).thenReturn(Optional.ofNullable(user));
+		
+		User result = userService.findById(this.user.getId());
+		Assert.assertEquals(this.user.getUsername(), result.getUsername());
+    }
+	
+	
+	@Test
+    public void updateUserTest() {
+		userService.createUser(user);
+		
+//		String nombre = "Test";
+//		int id = this.user2.getId();
+//		User user_aux = this.user;
+//		user_aux.setUsername(nombre);
+		//User result = userService.findById(id);
+		//userRepository.save(this.user);
+		userService.updateUser(this.user);
+		Mockito.when(userRepository.findById(9999)).thenReturn(Optional.ofNullable(user));
+		
+		User result = userService.findById(9999);
+		Assert.assertEquals("prueba", result.getUsername());
     }
 	
 	
