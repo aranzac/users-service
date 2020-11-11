@@ -66,8 +66,6 @@ public class UserServiceImpl implements UserService {
 		catch(Exception e) {
 			throw new ResourceNotFoundException("No user found with Email " + email);
 		}
-		
-	
 	}
 
 	@Override
@@ -90,21 +88,29 @@ public class UserServiceImpl implements UserService {
 
 	@Override
     //@Secured ({"ROLE_USER", "ROLE_ADMIN"})
-	public User updateUser( User user) {
+	public User updateUser(int id, User user) {
 		
-		try {
-			 userRepository.findById(user.getId());
-			 user.setId(user.getId());
-			 return userRepository.save(user);
-		}
-		catch(Exception e) {
-			throw new ResourceNotFoundException(": No user found with id " + user.getId());
-		}
+		User oldUser = userRepository.findById(id);
+//		oldUser.setUsername(user.getUsername());
+//		oldUser.setEmail(user.getEmail());
+//		oldUser.setPassword(user.getPassword());
+//		oldUser.setState(user.getState());
+		//oldUser.setRoles(user.getRoles());
+
+		return userRepository.save(user);
+		
+//		try {
+//			 userRepository.findById(user.getId());
+//			 return userRepository.save(user);
+//		}
+//		catch(Exception e) {
+//			throw new ResourceNotFoundException(": No user found with id " + user.getId());
+//		}
 	}
 
 	@Override
     @Secured ({"ROLE_USER", "ROLE_ADMIN"})
-	public void deleteUser(int id) {
+	public void deleteUserById(int id) {
 
 		userRepository.deleteById(id);
 
@@ -117,6 +123,13 @@ public class UserServiceImpl implements UserService {
 //		}
 		// userRepository.deleteById(id).orElseThrow(() -> new
 		// ResourceNotFoundException("No user found with id " + id));
+	}
+	
+	@Override
+    @Secured ({"ROLE_USER", "ROLE_ADMIN"})
+	public void deleteUser(User user) {
+
+		userRepository.delete(user);
 	}
 
 }

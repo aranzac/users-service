@@ -60,6 +60,7 @@ public class User {
 		this.password = password;
 		this.email = email;
 		this.state = state;
+		this.roles = new ArrayList<Role>();
 	}
 	
 	public User(String username, String password, String email, String state) {

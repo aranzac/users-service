@@ -9,9 +9,11 @@ public interface UserService {
 
 	public User createUser(User user);
 
-	public User updateUser( User user);
+	public User updateUser( int id, User user);
 
-	public void deleteUser(int id);
+	public void deleteUserById(int id);
+
+	public void deleteUser(User user);
 
 	public User findById(int id);
 

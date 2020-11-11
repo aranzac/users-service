@@ -105,7 +105,7 @@ public class AccountController {
 				user.setState("enabled");
 			
 			
-			return userService.updateUser(user);
+			return userService.updateUser(id, user);
 		} catch (ResourceNotFoundException ex) {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, ex.getMessage());
 		}
@@ -116,7 +116,8 @@ public class AccountController {
 	@DeleteMapping("/{id}")
 	public void deleteUser(@PathVariable("id") int id) {
 		System.out.println("en controller");
-		userService.deleteUser(id);
+		
+		userService.deleteUser(userService.findById(id));
 //		try {
 //			System.out.println("intentando");
 //			userService.deleteUser(id);
