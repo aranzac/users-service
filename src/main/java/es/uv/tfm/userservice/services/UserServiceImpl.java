@@ -23,6 +23,7 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	RoleRepository roleRepository;
+	
 
 	@Override
 	public List<User> getUsers() {
@@ -32,30 +33,50 @@ public class UserServiceImpl implements UserService {
 	@Override
     @Secured ({"ROLE_USER", "ROLE_ADMIN"})
 	public User findById(int id) {
-		return userRepository.findById(id)
-				.orElseThrow(() -> new ResourceNotFoundException(": No user found with id " + id));
+		
+		try {
+			return userRepository.findById(id);
+		}
+		catch(Exception e) {
+			throw  new ResourceNotFoundException(": No user found with id " + id);
+		}
+	
 	}
 
 	@Override
     @Secured ({"ROLE_USER", "ROLE_ADMIN"})
 	public User findByUsername(String username) {
-		return userRepository.findByUsername(username)
-				.orElseThrow(() -> new ResourceNotFoundException("No user found with Username " + username));
+		
+		try {
+			return userRepository.findByUsername(username);
+		}
+		catch(Exception e) {
+			throw new ResourceNotFoundException("No user found with Username " + username);
+		}
+	
 	}
 
 	@Override
     @Secured ({"ROLE_USER", "ROLE_ADMIN"})
 	public User findByEmail(String email) {
-		return userRepository.findByEmail(email)
-				.orElseThrow(() -> new ResourceNotFoundException("No user found with Email " + email));
+		
+		try {
+			return userRepository.findByEmail(email);
+		}
+		catch(Exception e) {
+			throw new ResourceNotFoundException("No user found with Email " + email);
+		}
+		
+	
 	}
 
 	@Override
 	public User createUser(User user) {
 
-		if (userRepository.findByUsername(user.getUsername()).isPresent()
-				|| userRepository.findByEmail(user.getEmail()).isPresent())
+		if((userRepository.findByUsername(user.getUsername()) != null) || (userRepository.findByEmail(user.getEmail()) != null))
 			throw new UserExistsException("User already exists");
+		
+	
 
 		Optional<Role> role = roleRepository.findByName("ROLE_USER");
 
@@ -70,12 +91,15 @@ public class UserServiceImpl implements UserService {
 	@Override
     //@Secured ({"ROLE_USER", "ROLE_ADMIN"})
 	public User updateUser( User user) {
-
-		userRepository.findById(user.getId()).orElseThrow(() -> new ResourceNotFoundException(": No user found with id " + user.getId()));
-
-		user.setId(user.getId());
-
-		return userRepository.save(user);
+		
+		try {
+			 userRepository.findById(user.getId());
+			 user.setId(user.getId());
+			 return userRepository.save(user);
+		}
+		catch(Exception e) {
+			throw new ResourceNotFoundException(": No user found with id " + user.getId());
+		}
 	}
 
 	@Override

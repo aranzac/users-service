@@ -12,12 +12,14 @@ import es.uv.tfm.userservice.entities.User;
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer> {
 
-	Optional<User> findByUsername(String username);
+	User findByUsername(String username);
 	
-	Optional<User> findByEmail(String email);
+	User findByEmail(String email);
 	
 	@Query("SELECT u FROM User u WHERE u.username = :username")
     public User getUserByUsername(@Param("username") String username);
 	
 	void deleteById(int id);
+	
+	User findById(int id);
 }
