@@ -32,8 +32,6 @@ DEFAULT CHARACTER SET = utf8;
 CREATE TABLE IF NOT EXISTS `users_db`.`users_has_roles` (
   `users_id` INT(11) NOT NULL,
   `roles_id` INT(11) NOT NULL,
-  INDEX `fk_users_has_roles_roles1_idx` (`roles_id` ASC) VISIBLE,
-  INDEX `fk_users_has_roles_users1_idx` (`users_id` ASC) VISIBLE,
   CONSTRAINT `fk_users_has_roles_roles1`
     FOREIGN KEY (`roles_id`)
     REFERENCES `users_db`.`roles` (`id`),
