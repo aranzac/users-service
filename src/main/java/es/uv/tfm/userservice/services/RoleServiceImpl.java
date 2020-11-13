@@ -7,8 +7,10 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Service;
 
 import es.uv.tfm.userservice.entities.Role;
+import es.uv.tfm.userservice.entities.User;
 import es.uv.tfm.userservice.exceptions.ResourceNotFoundException;
 import es.uv.tfm.userservice.repository.RoleRepository;
+import es.uv.tfm.userservice.repository.UserRepository;
 
 @Service
 public class RoleServiceImpl implements RoleService{
@@ -16,6 +18,9 @@ public class RoleServiceImpl implements RoleService{
 	@Autowired
 	RoleRepository roleRepository;
 	
+	@Autowired
+	UserRepository userRepository;
+
 	
 	@Override
 	@Secured("ROLE_ADMIN")
@@ -26,43 +31,57 @@ public class RoleServiceImpl implements RoleService{
 	@Override
 	@Secured("ROLE_ADMIN")
 	public Role updateRole(int id, Role role) {
-		roleRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("No user found with id " + id));
-		
-		role.setId(id);
-		
-		return roleRepository.save(role);
-	}
-
-	@Override
-	@Secured("ROLE_ADMIN")
-	public Boolean deleteRole(int id) {
-		
 		try {
-			 roleRepository.deleteById(id);
-				return true;
-
-		} catch (Exception e) {
-			return false;
+			roleRepository.findById(id);
+			role.setId(id);
+			return roleRepository.save(role);
 		}
+		catch(Exception e) {
+			throw new ResourceNotFoundException("No role found with id: " + id);
+		}		
+		
+		
+	}
+	
+	@Override
+    @Secured ("ROLE_ADMIN")
+	public void deleteRole(Role role) {
+
+		roleRepository.delete(role);
 	}
 
 	@Override
 	@Secured("ROLE_ADMIN")
 	public Role findById(int id) {
-		return roleRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("No user found with id " + id));
-
+		try {
+			return roleRepository.findById(id);
+		}
+		catch(Exception e) {
+			throw new ResourceNotFoundException("No role found with id: " + id);
+		}
 	}
 
 	@Override
 	public Role findByName(String name) {
-		return roleRepository.findByName(name).orElseThrow(() -> new ResourceNotFoundException("No user found with Name " + name));
-
+		
+		try {
+			return roleRepository.findByName(name);
+		}
+		catch(Exception e) {
+			throw new ResourceNotFoundException("No role found with name: " + name);
+		}
 	}
 
 	@Override
-	@Secured("ROLE_ADMIN")
+	@Secured({"ROLE_ADMIN"})
 	public List<Role> getRoles(){
 		return roleRepository.findAll();
+	}
+
+	@Override
+	public void deleteRoleById(int id) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	

@@ -5,7 +5,7 @@ import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
+import org.springframework.context.annotation.Profile;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.BeanIds;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -35,6 +35,7 @@ import es.uv.tfm.userservice.security.CustomUserDetailsService;
 
 @Configuration
 @EnableWebSecurity
+//@Profile(value = {"dev", "prod"})
 @EnableGlobalMethodSecurity(securedEnabled= true, prePostEnabled = true, jsr250Enabled = true )
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 

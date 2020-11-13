@@ -89,7 +89,7 @@ public class RoleController {
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Object> deleteRole(@PathVariable("id") int id) {
 		try {
-			return new ResponseEntity<Object>(roleService.deleteRole(id), HttpStatus.NO_CONTENT);
+			return new ResponseEntity<Object>(HttpStatus.NO_CONTENT);
 		} catch (ResourceNotFoundException ex) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, ex.getMessage());
 		}

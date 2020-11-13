@@ -33,7 +33,6 @@ public class UserServiceTest{
 		assertEquals(2, userService.getUsers().size());
 	}
 	
-	
 	@Test
 	@WithMockUser
 	public void findByIdTest() {

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Set;
 
 import es.uv.tfm.userservice.entities.Role;
+import es.uv.tfm.userservice.entities.User;
 
 public interface RoleService {
 
@@ -11,7 +12,10 @@ public interface RoleService {
 
 	public Role updateRole(int id, Role role);
 
-	public Boolean deleteRole(int id);
+	public void deleteRoleById(int id);
+
+	public void deleteRole(Role role);
+	
 
 	public Role findById(int id);
 

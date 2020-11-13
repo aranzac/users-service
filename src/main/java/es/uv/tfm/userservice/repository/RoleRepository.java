@@ -1,14 +1,18 @@
 package es.uv.tfm.userservice.repository;
 
-import java.util.Optional;
-
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import es.uv.tfm.userservice.entities.Role;
-import es.uv.tfm.userservice.entities.User;
 
+@Repository
 public interface RoleRepository extends JpaRepository<Role, Integer>{
 
-	Optional<Role> findByName(String name);
+	Role findById(int id);
 
+	Role findByName(String name);
+	
+	void deleteById(int id);
+
+	
 }
