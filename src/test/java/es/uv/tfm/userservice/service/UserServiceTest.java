@@ -69,6 +69,7 @@ public class UserServiceTest{
 		assertEquals(user, userService.createUser(user));
 	}
 	
+	
 	@Test
 	public void updateUserTest() {
 		User user = new User(9999, "prueba", "123456", "prueba@prueba", "enabled");
