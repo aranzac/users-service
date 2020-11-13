@@ -40,3 +40,6 @@ CREATE TABLE IF NOT EXISTS `users_db`.`users_has_roles` (
     REFERENCES `users_db`.`users` (`id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
+
+INSERT INTO roles(id, name) VALUES(0, ROLE_USER);
+INSERT INTO roles(id, name) VALUES(1, ROLE_ADMIN);
