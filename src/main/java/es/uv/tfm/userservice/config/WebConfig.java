@@ -12,7 +12,6 @@ import org.thymeleaf.extras.springsecurity5.dialect.SpringSecurityDialect;
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
 
-
 	@Override
 	public void addViewControllers(ViewControllerRegistry registry) {
 		registry.addViewController("/login").setViewName("login");
@@ -25,20 +24,14 @@ public class WebConfig implements WebMvcConfigurer {
 	public SpringSecurityDialect securityDialect() {
 		return new SpringSecurityDialect();
 	}
-	
-	@Override
-    public void addCorsMappings(CorsRegistry corsRegistry) {
-        corsRegistry
-        		.addMapping("/**").allowedOrigins("http://localhost:4200").allowedMethods("*").allowedHeaders("*")
 
-//                .allowedOrigins("http://localhost:4200")
-//                .allowedMethods("*")
-//                .maxAge(3600L)
-//                .allowedHeaders("*")
-                //.exposedHeaders("Authorization")
-                //.allowCredentials(true)
-                ;
-        corsRegistry.addMapping("/roles/**").allowedOrigins("http://localhost:4200").allowedMethods("*").allowedHeaders("*");
-                
+	@Override
+	public void addCorsMappings(CorsRegistry corsRegistry) {
+//		corsRegistry.addMapping("/**").allowedOrigins("http://localhost:4200/*").allowedMethods("*").allowedHeaders("*");
+		corsRegistry.addMapping("/**").allowedOrigins("*").allowedMethods("GET", "POST", "PUT", "DELETE")
+				.allowedOrigins("*").allowedMethods("*").maxAge(3600L)
+				.exposedHeaders("Authorization").allowedHeaders("*").allowCredentials(true);
+		// corsRegistry.addMapping("/roles/name/**").allowedOrigins("http://localhost:4200").allowedMethods("*").allowedHeaders("*");
+
 	}
 }

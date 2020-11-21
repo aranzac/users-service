@@ -37,8 +37,8 @@ public class User {
 	@Column(name= "email", unique= true)
 	private String email;
 	
-	@Column(name= "state")
-	private String state;
+	@Column(name= "enabled")
+	private Boolean enabled;
 
 	@ManyToMany(cascade = CascadeType.MERGE)
 	//@JoinTable(name = "users_has_roles", joinColumns = @JoinColumn(name = "users_id"), inverseJoinColumns = @JoinColumn(name = "roles_id"))
@@ -53,13 +53,13 @@ public class User {
 	
 	
 	
-	public User(int id, String username, String password, String email, String state) {
+	public User(int id, String username, String password, String email, Boolean state) {
 		super();
 		this.id = id;
 		this.username = username;
 		this.password = password;
 		this.email = email;
-		this.state = state;
+		this.enabled = state;
 		this.roles = new ArrayList<Role>();
 	}
 	
@@ -68,7 +68,7 @@ public class User {
 		this.username = username;
 		this.password = password;
 		this.email = email;
-		this.state = state;
+		this.enabled = enabled;
 		this.roles = new ArrayList<Role>();
 	}
 
@@ -104,12 +104,12 @@ public class User {
 		this.email = email;
 	}
 
-	public String getState() {
-		return state;
+	public Boolean getState() {
+		return enabled;
 	}
 
-	public void setState(String state) {
-		this.state = state;
+	public void setState(Boolean state) {
+		this.enabled = state;
 	}
 
 	public List<Role> getRoles() {
@@ -126,13 +126,13 @@ public class User {
 
 
 
-	public User(int id, String username, String password, String email, String state, List<Role> roles) {
+	public User(int id, String username, String password, String email, Boolean state, List<Role> roles) {
 		super();
 		this.id = id;
 		this.username = username;
 		this.password = password;
 		this.email = email;
-		this.state = state;
+		this.enabled = state;
 		this.roles = roles;
 	}
 

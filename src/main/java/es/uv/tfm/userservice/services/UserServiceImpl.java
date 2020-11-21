@@ -6,6 +6,8 @@ import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import es.uv.tfm.userservice.entities.Role;
@@ -44,7 +46,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-    @Secured ({"ROLE_USER", "ROLE_ADMIN"})
+    //@Secured ({"ROLE_USER", "ROLE_ADMIN"})
 	public User findByUsername(String username) {
 		
 		try {

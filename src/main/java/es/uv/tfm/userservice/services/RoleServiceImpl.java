@@ -65,6 +65,7 @@ public class RoleServiceImpl implements RoleService{
 	public Role findByName(String name) {
 		
 		try {
+			System.out.println("service");
 			return roleRepository.findByName(name);
 		}
 		catch(Exception e) {
@@ -73,7 +74,7 @@ public class RoleServiceImpl implements RoleService{
 	}
 
 	@Override
-	@Secured({"ROLE_ADMIN"})
+	//@Secured({"ROLE_ADMIN"})
 	public List<Role> getRoles(){
 		return roleRepository.findAll();
 	}

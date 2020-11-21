@@ -1,4 +1,4 @@
-package es.uv.tfm.userservice.service;
+package es.uv.tfm.userservice.test.service;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.times;

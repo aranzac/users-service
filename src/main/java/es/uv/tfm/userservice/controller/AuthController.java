@@ -2,10 +2,13 @@ package es.uv.tfm.userservice.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -20,6 +23,7 @@ import org.springframework.web.server.ResponseStatusException;
 import es.uv.tfm.userservice.entities.AuthRequest;
 import es.uv.tfm.userservice.entities.Role;
 import es.uv.tfm.userservice.exceptions.ResourceNotFoundException;
+import es.uv.tfm.userservice.security.CustomUserDetailsService;
 import es.uv.tfm.userservice.security.JwtResponse;
 import es.uv.tfm.userservice.security.JwtUtil;
 import es.uv.tfm.userservice.services.RoleService;
@@ -44,24 +48,52 @@ public class AuthController {
 	@Autowired
 	private AuthenticationManager authenticationManager;
 
+	@Autowired
+	private CustomUserDetailsService userDetailsService;
+	
 	@ResponseStatus(HttpStatus.OK)
 	@ExceptionHandler(AuthenticationException.class)
 	@PostMapping("/authenticate")
-	public ResponseEntity<Object> generateToken(@RequestBody AuthRequest authRequest) throws Exception {
+	public ResponseEntity<Object> login(HttpServletRequest httpServletRequest, @RequestBody AuthRequest authRequest) throws Exception {
 		List<Role> roles;
 		try {
+
+			System.out.println(authRequest.getUsername() + " " + authRequest.getPassword());
+
 			authenticationManager.authenticate(
 					new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword()));
 
+			System.out.println("controler");
+
 			roles = userService.findByUsername(authRequest.getUsername()).getRoles();
 
+			System.out.println(roles.toString());
+
+		} catch (BadCredentialsException e) {
+			System.out.println("erorr1");
+
+			throw new Exception("Incorrect username or password", e);
+
 		} catch (ResourceNotFoundException ex) {
+			System.out.println("erorr2");
+
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, ex.getMessage());
 		} catch (AuthenticationException ex) {
+			System.out.println(ex);
+			System.out.println("erorr3");
+
 			throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, ex.getMessage());
+		} catch (Exception ex) {
+			System.out.println("erorr4");
+			System.out.println(ex);
+
+			throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, ex.getMessage());
+
 		}
 
 		return ResponseEntity.ok(
 				new JwtResponse(jwtUtil.generateToken(authRequest.getUsername()), authRequest.getUsername(), roles));
+
 	}
+
 }

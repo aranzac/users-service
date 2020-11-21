@@ -1,16 +1,8 @@
-server:
-  port: 8888
-
-#spring:
-#   security:
-#    basic:
-#     enabled: false
-
-#spring:
-#  application:
-#    name: userservice
-#  cloud:
-#    config:
-#      uri: http://localhost:8888
-#      username: admin
-#      password: s3cr3t
+spring:
+  application:
+    name: userservice
+  cloud:
+    config:
+      uri: http://localhost:8888
+      username: admin
+      password: s3cr3t

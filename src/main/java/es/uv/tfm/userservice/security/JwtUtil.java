@@ -17,6 +17,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 public class JwtUtil {
 
     private String secret = "s3cr3t";
+    
 
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
