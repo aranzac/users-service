@@ -63,12 +63,12 @@ public class User {
 		this.roles = new ArrayList<Role>();
 	}
 	
-	public User(String username, String password, String email, String state) {
+	public User(String username, String password, String email, Boolean state) {
 		super();
 		this.username = username;
 		this.password = password;
 		this.email = email;
-		this.enabled = enabled;
+		this.enabled = state;
 		this.roles = new ArrayList<Role>();
 	}
 

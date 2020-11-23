@@ -94,14 +94,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		// We don't need CSRF for this example
 		httpSecurity.csrf().disable().headers().and()
 		.cors().and()
-				// dont authenticate this particular request
-				.authorizeRequests().antMatchers("/auth/authenticate", "/account").permitAll()
+				
+				.authorizeRequests()
+				.antMatchers("/auth/authenticate", "/account").permitAll()
 				.antMatchers("/resources/", "/webjars/", "/assets/").permitAll()
 				.antMatchers(HttpMethod.POST, "/account/").permitAll()
-				.antMatchers(HttpMethod.POST, "/auth/authenticate/").permitAll().antMatchers(HttpMethod.GET, "/roles/")
-				.permitAll()
-
-				.anyRequest().authenticated().and()
+				.antMatchers(HttpMethod.POST, "/auth/authenticate/").permitAll()
+				.antMatchers(HttpMethod.GET, "/roles/").permitAll()
+				.anyRequest().authenticated()
+				.and()
 
 				// make sure we use stateless session; session won't be used to
 				// store user's state.

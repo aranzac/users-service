@@ -33,7 +33,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-    @Secured ({"ROLE_USER", "ROLE_ADMIN"})
+    //@Secured ({"ROLE_USER", "ROLE_ADMIN"})
 	public User findById(int id) {
 		
 		try {
@@ -59,7 +59,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-    @Secured ({"ROLE_USER", "ROLE_ADMIN"})
+    //@Secured ({"ROLE_USER", "ROLE_ADMIN"})
 	public User findByEmail(String email) {
 		
 		try {

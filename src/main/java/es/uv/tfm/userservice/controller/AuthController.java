@@ -63,24 +63,17 @@ public class AuthController {
 			authenticationManager.authenticate(
 					new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword()));
 
-			System.out.println("controler");
-
 			roles = userService.findByUsername(authRequest.getUsername()).getRoles();
 
-			System.out.println(roles.toString());
-
 		} catch (BadCredentialsException e) {
-			System.out.println("erorr1");
 
 			throw new Exception("Incorrect username or password", e);
 
 		} catch (ResourceNotFoundException ex) {
-			System.out.println("erorr2");
 
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, ex.getMessage());
 		} catch (AuthenticationException ex) {
 			System.out.println(ex);
-			System.out.println("erorr3");
 
 			throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, ex.getMessage());
 		} catch (Exception ex) {

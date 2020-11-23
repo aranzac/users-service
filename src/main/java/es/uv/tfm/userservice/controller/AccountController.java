@@ -39,7 +39,6 @@ public class AccountController {
 
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
-	
 
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("/")
@@ -52,7 +51,7 @@ public class AccountController {
 	@ResponseStatus(HttpStatus.OK)
 	@GetMapping("/{id}")
 	public User getAccountById(@PathVariable("id") int id) {
-	
+
 		try {
 			return userService.findById(id);
 		} catch (ResourceNotFoundException ex) {
@@ -66,18 +65,41 @@ public class AccountController {
 	@GetMapping("/user/{user}")
 	public User getAccountByUsername(HttpServletRequest httpServletRequest, @PathVariable("user") String user) {
 		
+		
 		String jwt = httpServletRequest.getHeader("authorization");
 		String username = getUserFromToken(jwt);
 	
-		try {
-			if (username.equals(user))
+		
+		System.out.println(httpServletRequest.getUserPrincipal().getName());
+		System.out.println(httpServletRequest.isUserInRole("ROLE_ADMIN"));
+		
+		if(httpServletRequest.isUserInRole("ROLE_ADMIN") || username.equals(user)) {
+			try {
 				return userService.findByUsername(user);
-			else
-				throw new ResponseStatusException(HttpStatus.UNAUTHORIZED,
-						"El usuario requerido no coincide con el registrado");
-		} catch (ResourceNotFoundException ex) {
-			throw new ResponseStatusException(HttpStatus.NOT_FOUND, ex.getMessage());
+			}catch(ResourceNotFoundException ex) {
+
+				throw new ResponseStatusException(HttpStatus.NOT_FOUND, ex.getMessage());
+			}
 		}
+		else if(!httpServletRequest.isUserInRole("ROLE_ADMIN")&& !username.equals(user)) {
+			throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "El usuario no tiene los permisos necesarios");
+
+		}
+		
+		
+		return null;
+		
+		
+//		try {
+//			
+//			if(httpServletRequest.isUserInRole("ROLE_ADMIN") || username.equals(user))
+//					return userService.findByUsername(user);
+//			else if(!httpServletRequest.isUserInRole("ROLE_ADMIN")&& !username.equals(user))
+//				throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "El usuario no tiene los permisos necesarios");
+//			
+//		} catch (ResourceNotFoundException ex) {
+//			throw new ResponseStatusException(HttpStatus.NOT_FOUND, ex.getMessage());
+//		}
 	}
 
 	@ResponseStatus(HttpStatus.CREATED)
@@ -126,18 +148,16 @@ public class AccountController {
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	@DeleteMapping("/{id}")
 	public void deleteUser(HttpServletRequest httpServletRequest, @PathVariable("id") int id) {
-		
+
 		User user = userService.findById(id);
 		String userToken = getUserFromToken(httpServletRequest.getHeader("authorization"));
-		
-		if(userToken.equals(user.getUsername())) {
+
+		if (userToken.equals(user.getUsername())) {
 			userService.deleteUser(userService.findById(id));
 		}
 		throw new ResponseStatusException(HttpStatus.UNAUTHORIZED,
 				"El usuario requerido no coincide con el registrado");
 
-		
-		
 //		try {
 //			System.out.println("intentando");
 //			userService.deleteUser(id);
@@ -148,11 +168,11 @@ public class AccountController {
 //			throw new ResponseStatusException(HttpStatus.NOT_FOUND, ex.getMessage());
 //		}
 	}
-	
+
 	public String getUserFromToken(String header) {
-		
+
 		JwtUtil jwtUtil = new JwtUtil();
-		
+
 		String jwt = header.substring(7, header.length());
 		return jwtUtil.extractUsername(jwt);
 	}

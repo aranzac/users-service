@@ -65,7 +65,6 @@ public class RoleServiceImpl implements RoleService{
 	public Role findByName(String name) {
 		
 		try {
-			System.out.println("service");
 			return roleRepository.findByName(name);
 		}
 		catch(Exception e) {
